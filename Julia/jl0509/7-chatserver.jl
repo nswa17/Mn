@@ -1,4 +1,7 @@
-server = listen(3010)
+using JSON
+
+ID = "server0"
+server = listen(3012)
 
 conn = accept(server)
 
@@ -10,8 +13,8 @@ end
 while true
   line2 = readline(STDIN)
   ismatch(r"^q", line2) && break
-
-  write(conn,line2)
+  message = [ID, line2]
+  write(conn, JSON.json(message))
 end
 
 close(conn)
