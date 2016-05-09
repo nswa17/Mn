@@ -1,11 +1,17 @@
-server = listen(2009)
+server = listen(3010)
 
 conn = accept(server)
 
-while true
+@spawn while true
   line = readline(conn)
   print(line)
-  write(conn,line)
+end
+
+while true
+  line2 = readline(STDIN)
+  ismatch(r"^q", line2) && break
+
+  write(conn,line2)
 end
 
 close(conn)
