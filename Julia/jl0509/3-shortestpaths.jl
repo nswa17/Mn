@@ -53,6 +53,14 @@ function set_C(data)
   return C
 end
 
+function infplus(c, j)
+  if j == 5000
+    return 5000
+  else
+    return c + j
+  end
+end
+
 function get_next_J(J, C)
   new_J = deepcopy(J)
   for i in 1:length(J)
@@ -61,20 +69,24 @@ function get_next_J(J, C)
     #println([(C[i, j] + J[j]) for j in available_js]...)
     #println([C[i, j] for j in available_js])
     #println([J[j] for j in available_js])
-    new_J[i] = minimum([C[i, j] + J[j] for j in available_js])
+    #println([C[i, j] + J[j] for j in available_js])
+    new_J[i] = minimum([infplus(C[i, j], J[j]) for j in available_js])
     #println(minimum([C[i, j] + J[j] for j in available_js]))
   end
+  println(new_J)
   #println(new_J-J)
   return new_J
 end
 #println("hi")
 
+
 data = get_data()
 data_rev!(data)
 #println(data)
 J0 = ones(Float64, 100) .* 5000
-J0[100] = 0
+J0[1] = 0#%%%%%%%%%%%%%%%%%%%%%%%%%%%
 C = set_C(data)
+#println(C)
 
 J2, J = get_next_J(J0, C), J0
 i = 1
@@ -83,11 +95,11 @@ while J != J2
   J2, J = get_next_J(J2, C), J2
   i += 1
   #println(i)
-  if i == 50000
+  if i == 50
     break
   end
 end
 
 println("finished by step $i")
-println(J2)
 #function data2matrix(data)
+println(J2)

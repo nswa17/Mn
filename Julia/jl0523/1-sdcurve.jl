@@ -68,7 +68,7 @@ end
 
 function find_equilibrium(ps, supplies, demands)
   i = indmin(map(abs, supplies .- demands))
-  return ps[i], (supplies[i] + demands[i])/2
+  return ps[i], min(supplies[i], demands[i])
 end
 
 function trade(p_s, p_c, ss, cs)
