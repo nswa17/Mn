@@ -13,7 +13,7 @@ end
 function tkm(S, A, Sigma)
   Delta = S
   i = 1
-  while sum(abs(Delta) .< 1) != length(S)
+  while sum(abs(Delta) .< 1e-12) != length(S)
     S2 = get_next_S(S, A, Sigma)
     Delta = S2 .- S
     S = S2
